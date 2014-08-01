@@ -1,8 +1,8 @@
 {
-  "database": "mongodb://localhost/imago",
+  "database": "mongodb://localhost/focal",
 
   "images": {
-    "base": "/var/lib/imago",
+    "base": "/var/lib/focal",
     "previews": {
       "quality": 85
     },
