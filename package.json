@@ -1,0 +1,24 @@
+{
+  "name": "imago",
+  "version": "0.0.0",
+  "description": "nodejs photo gallery",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nicolas Joyard <joyard.nicolas@gmail.com>",
+  "license": "GPL3",
+  "dependencies": {
+    "chokidar": "^0.8.2",
+    "exif": "^0.4.0",
+    "express": "^4.7.2",
+    "imagemagick-native": "^1.2.2",
+    "less-middleware": "^1.0.3",
+    "log4js": "^0.6.16",
+    "mkdirp": "^0.5.0",
+    "mongodb": "^1.4.7",
+    "mongoose": "^3.8.14",
+    "optimist": "^0.6.1",
+    "yarm": "^0.3.7"
+  }
+}

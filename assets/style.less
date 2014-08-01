@@ -1,0 +1,140 @@
+@background: color('#111');
+@text: color('#bbc');
+@links: color('#eed');
+@linksHover: color('#ccb');
+@blockBackground: color('#333');
+@blockHoverBackground: color('#555');
+
+@galleryMargin: 1em;
+
+@animLength: .5s;
+
+body {
+  color: @text;
+  background-color: @background;
+  font-family: Calibri, Helvetica, sans-serif;
+  margin: 0 5em;
+}
+
+a {
+  color: @links;
+  text-decoration: none;
+
+  &:hover {
+    color: @linksHover;
+    text-decoration: underline;
+  }
+}
+
+.clear {
+  clear: both;
+}
+
+#breadcrumb {
+  .separator {
+    padding: 0 .5em;
+  }
+
+  .current {
+    font-weight: bold;
+  }
+}
+
+#sub-galleries, #images {
+  margin: 1em 0;
+}
+
+.sub-gallery {
+  display: inline-block;
+  width: 20em;
+  background-color: @blockBackground;
+  vertical-align: top;
+  margin: 0 @galleryMargin @galleryMargin 0;
+  padding: @galleryMargin/2;
+
+
+  &:hover {
+    color: @links;
+    background-color: @blockHoverBackground;
+    transition: background-color @animLength;
+    text-decoration: none;
+  }
+
+  img {
+    width: 75px;
+    height: 75px;
+    float: left;
+    margin-right: @galleryMargin;
+  }
+
+  .name {
+    font-weight: bold;
+  }
+
+  .count {
+    font-size: .8em;
+  }
+}
+
+#images {
+  .container {
+    display: inline-block;
+    padding: @galleryMargin;
+    margin: 0 -@galleryMargin -@galleryMargin 0;
+    position: relative;
+
+    .info {
+      opacity: 0;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      right: 0;
+      top: 100px;
+      margin-top: @galleryMargin;
+      padding: @galleryMargin/2;
+      visibility: hidden;
+      background-color: @blockHoverBackground;
+
+      .title {
+        font-size: .8em;
+      }
+    }
+
+    &:hover {
+      background-color: @blockHoverBackground;
+      transition: background-color @animLength;
+
+      .info {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity @animLength;
+      }
+    }
+  }
+
+  img {
+    z-index: 0;
+    opacity: 0;
+    transition: opacity @animLength;
+  }
+}
+
+.select-box {
+  display: none;
+  position: absolute;
+  top: 1em;
+  width: 92px;
+  height: 92px;
+  border: 4px solid @text;
+
+  .check {
+    padding: .25em;
+    background-color: @text;
+    color: #blockBackground;
+    font-weight: bold;
+  }
+}
+
+.selected .select-box {
+  display: block;
+}

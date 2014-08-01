@@ -1,0 +1,31 @@
+{
+  "database": "mongodb://localhost/imago",
+
+  "images": {
+    "base": "/var/lib/imago",
+    "previews": {
+      "quality": 85
+    },
+    "thumbnails": {
+      "size": 100,
+      "quality": 75,
+      "crop": true
+    }
+  },
+
+  "server": {
+    "host": "0.0.0.0",
+    "port": "8089"
+  },
+
+  "log4js": {
+    "appenders": [
+      { "type": "console" }
+    ],
+
+    "levels": {
+      "server": "DEBUG",
+      "store": "DEBUG"
+    }
+  }
+}

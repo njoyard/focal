@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="assets/d.js"></script>
+    <script src="assets/ist.js"></script>
+    <script src="assets/dom.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+
+    <script type="text/x-ist" id="gallery">
+      #rendered
+        #menu
+          a.selection
+
+        /*#symbols
+          "✓ ✐ "*/
+
+        #breadcrumb
+          @each nav
+            @if loop.index > 0
+              span.separator "⟩"
+
+            @if loop.index === loop.length - 1
+              span.current "{{ name }}"
+            @else
+              a.nav[href=#][data-path={{ path }}] "{{ name }}"
+
+        #gallery
+          #sub-galleries
+          #images
+    </script>
+
+    <script type="text/x-ist" id="sub-galleries">
+      @each galleries
+        a.sub-gallery[href=#][data-path={{ path }}]
+          img[src=/thumbs/{{ thumb }}]
+          .name "{{ name }}"
+          @if 'images' in this
+            .count "{{ images }} photos"
+          @if 'sub' in this && sub > 0
+            .count "{{ sub }} galeries"
+          .clear
+    </script>
+
+    <script type="text/x-ist" id="images">
+      @each images
+        a.container[data-path={{ path }}]
+          img[src=/thumbs/{{ path }}]
+          .select-box
+            span.check "✓"
+          .info
+            span.title "{{ title }}"
+    </script>
+  </head>
+  <body>
+    <h1>Galerie de photos famille Joyard</h1>
+    <script src="assets/main.js"></script>
+  </body>
+</html>
