@@ -27,6 +27,15 @@
         #gallery
           #sub-galleries
           #images
+
+        #slideshow
+          #background
+          #image
+            img[src=/previews/565/Ann%C3%A9es%20Mont%C3%A9limar/2003-2005/Lisa%20(Mont%C3%A9limar)%20No%C3%ABl%202003.jpg]
+            #prev
+              span "⟨"
+            #next
+              span "⟩"
     </script>
 
     <script type="text/x-ist" id="sub-galleries">
@@ -43,7 +52,7 @@
 
     <script type="text/x-ist" id="images">
       @each images
-        a.container[data-path={{ path }}]
+        a.container[data-path={{ path }}][href=#]
           img[src=/thumbs/{{ path }}]
           .select-box
             span.check "✓"

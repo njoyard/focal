@@ -3,19 +3,6 @@
 'use strict';
 
 (function() {
-  ist.helper('behave', function(context, value, tmpl, iterate) {
-    iterate(function(key, rendered) {
-      if (rendered) {
-        rendered.update(context.value);
-      } else {
-        rendered = tmpl.render(context.value);
-      }
-
-      DOM.behave(rendered, value);
-      return rendered;
-    });
-  });
-
 
   /*!
    * URI helper
@@ -127,6 +114,15 @@
       }
     },
 
+    '#images .container': {
+      'click': function(e) {
+        e.preventDefault();
+
+        slideShow(this);
+        return false;
+      }
+    },
+
     '#images img': {
       'load': function() {
         this.style.opacity = 1;
@@ -184,7 +180,98 @@
     });
   }
 
+
+  /*!
+   * Slideshow
+   */
+
+  function slideShow(thumb) {
+    var ss = DOM.$('#slideshow');
+    var container = DOM.$(ss, '#image');
+    var bg = DOM.$(ss, '#background');
+    var img = DOM.$(ss, 'img');
+    var lnext = DOM.$(ss, '#next');
+    var lprev = DOM.$(ss, '#prev');
+    var thumbs = DOM.$$(thumb.parentNode, '.container');
+    var current;
+
+    function load(thumb) {
+      current = thumb;
+      img.src = '/previews/565/' + current.dataset.path;
+    }
+
+    function next(e) {
+      if (e) e.preventDefault();
+
+      load(thumbs[(thumbs.indexOf(current) + 1) % thumbs.length]);
+      return false;
+    }
+
+    function prev(e) {
+      if (e) e.preventDefault();
+
+      load(thumbs[(thumbs.indexOf(current) + thumbs.length - 1) % thumbs.length]);
+      return false;
+    }
+
+    function hide() {
+      document.removeEventListener('keypress', keydown);
+      img.removeEventListener('load', onload);
+      lnext.removeEventListener('click', next);
+      lprev.removeEventListener('click', prev);
+      bg.removeEventListener('click', hide);
+
+      ss.style.display = 'none';
+    }
+
+    function keydown(e) {
+      switch (e.keyCode) {
+        case 27: // ESC
+          hide();
+          break;
+
+        case 37: // Left
+        case 38: // Up
+          e.preventDefault();
+          prev();
+          return false;
+
+        case 39: // Right
+        case 40: // Down
+          e.preventDefault();
+          next();
+          return false;
+      }
+    }
+
+    function onload() {
+      /*jshint validthis:true*/
+      var width = img.offsetWidth;
+      var height = img.offsetHeight;
+
+      img.style.transition = '';
+      img.style.opacity = 0;
+
+      container.style.marginLeft = (-width/2) + 'px';
+      container.style.marginTop = (-height/2) + 'px';
+
+      setTimeout(function() {
+        img.style.transition = 'opacity .5s';
+        img.style.opacity = 1;
+      }, 0);
+    }
+
+    document.addEventListener('keydown', keydown);
+    img.addEventListener('load', onload);
+    lnext.addEventListener('click', next);
+    lprev.addEventListener('click', prev);
+    bg.addEventListener('click', hide);
+
+    ss.style.display = 'block';
+    load(thumb);
+  }
+
+
+  // Show root gallery on startup
   showGallery();
-
-
 }());

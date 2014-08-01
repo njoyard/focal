@@ -138,3 +138,70 @@ a {
 .selected .select-box {
   display: block;
 }
+
+#slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+
+  #background {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: @background;
+    opacity: 0.85;
+  }
+
+  #image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+  }
+
+  #next, #prev {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    font-size: 4em;
+    color: @background;
+    text-shadow: 0 0 .1em @text;
+    opacity: 0;
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+    span {
+      height: 1em;
+      line-height: 1em;
+      position: absolute;
+      top: 50%;
+      margin-top: -.5em;
+    }
+  }
+
+  #next {
+    left: 50%;
+    right: 0;
+
+    span {
+      right: .2em;
+    }
+  }
+
+  #prev {
+    left: 0;
+    right: 50%;
+
+    span {
+      left: .2em;
+    }
+  }
+}
