@@ -1,13 +1,18 @@
 {
-  "name": "imago",
+  "name": "focal",
   "version": "0.0.0",
-  "description": "nodejs photo gallery",
+  "description": "node.js photo gallery",
+  "keywords": [
+    "gallery",
+    "photo",
+    "picture"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Nicolas Joyard <joyard.nicolas@gmail.com>",
-  "license": "GPL3",
+  "license": "GPLv3",
   "dependencies": {
     "chokidar": "^0.8.2",
     "exif": "^0.4.0",
