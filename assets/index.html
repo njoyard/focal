@@ -11,8 +11,10 @@
         #menu
           a.selection
 
-        /*#symbols
-          "✓ ✐ "*/
+
+        #search
+          label[for=search-input] "Rechercher"
+          input#search-input[type=search][value={{ search }}]
 
         #breadcrumb
           @each nav
@@ -23,6 +25,7 @@
               span.current "{{ name }}"
             @else
               a.nav[href=#][data-path={{ path }}] "{{ name }}"
+
 
         #gallery
           #sub-galleries

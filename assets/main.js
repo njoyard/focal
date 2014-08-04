@@ -1,5 +1,5 @@
 /*jshint browser:true*/
-/*global D, DOM, ist*/
+/*global D, DOM, ist, console*/
 'use strict';
 
 (function() {
@@ -105,6 +105,14 @@
    */
 
   var behaviour = {
+    '#search-input': {
+      'keyup': function(e) {
+        if (e.keyCode === 13) {
+          showGallery('Recherche: "' + this.value + '"', this.value);
+        }
+      }
+    },
+
     '#breadcrumb .nav, #gallery .sub-gallery': {
       'click': function(e) {
         e.preventDefault();
@@ -135,7 +143,7 @@
    * Gallery renderer
    */
 
-  function showGallery(path) {
+  function showGallery(path, searchQuery) {
     path = path || '.';
 
     var nav = (path === '.' ? [] : path.split('/')).reduce(function(nav, element) {
@@ -152,32 +160,48 @@
       previous.parentNode.removeChild(previous);
     }
 
-    var rendered = ist.script('gallery').render({ nav: nav, name: name });
+    var rendered = ist.script('gallery').render({ nav: nav, name: name, search: searchQuery || '' });
     document.body.appendChild(rendered);
     DOM.behave(rendered, behaviour);
 
-    ajax.get(uri('/rest/galleries?parent=%s', path))
-    .then(function(subgalleries) {
+    function renderSubgalleries(subgalleries) {
       DOM.$('#rendered #sub-galleries').appendChild(ist.script('sub-galleries').render({ galleries: subgalleries }));
       DOM.behave(DOM.$('#rendered'), behaviour);
-    })
-    .error(function(e) {
-      console.log(e);
-    });
+    }
 
-    ajax.get(uri('/rest/images?query=gallery:%s', path))
-    .then(function(images) {
-      images._items.forEach(function(im) {
+    function renderImages(images) {
+      images.forEach(function(im) {
         var elements = im.path.split('/');
         im.title = elements[elements.length - 1].replace(/\.[^.]*$/, '');
       });
 
-      DOM.$('#rendered #images').appendChild(ist.script('images').render({ images: images._items }));
+      DOM.$('#rendered #images').appendChild(ist.script('images').render({ images: images }));
       DOM.behave(DOM.$('#rendered'), behaviour);
-    })
-    .error(function(e) {
-      console.log(e);
-    });
+    }
+
+    if (searchQuery) {
+      ajax.get(uri('/rest/search?q=%s', searchQuery))
+      .then(function(images) {
+        renderImages(images);
+      })
+      .error(function(e) {
+        console.log(e);
+      });
+    } else {
+      ajax.get(uri('/rest/galleries?parent=%s', path))
+      .then(renderSubgalleries)
+      .error(function(e) {
+        console.log(e);
+      });
+
+      ajax.get(uri('/rest/images?query=gallery:%s', path))
+      .then(function(images) {
+        renderImages(images._items);
+      })
+      .error(function(e) {
+        console.log(e);
+      });
+    }
   }
 
 

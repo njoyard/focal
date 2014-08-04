@@ -30,6 +30,26 @@ a {
   clear: both;
 }
 
+#search {
+  float: right;
+
+  label:after {
+    content: ' : ';
+  }
+
+  input {
+    background-color: @blockBackground;
+    color: @text;
+    border: 0;
+    outline: none;
+
+    &:focus {
+      transition: background-color @animLength;
+      background-color: @blockHoverBackground;
+    }
+  }
+}
+
 #breadcrumb {
   .separator {
     padding: 0 .5em;
