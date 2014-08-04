@@ -188,8 +188,10 @@
   function slideShow(thumb) {
     var ss = DOM.$('#slideshow');
     var container = DOM.$(ss, '#image');
+    var title = DOM.$(ss, '#title');
     var bg = DOM.$(ss, '#background');
-    var img = DOM.$(ss, 'img');
+    var display = DOM.$(ss, 'img#display');
+    var loader = DOM.$(ss, 'img#loader');
     var lnext = DOM.$(ss, '#next');
     var lprev = DOM.$(ss, '#prev');
     var thumbs = DOM.$$(thumb.parentNode, '.container');
@@ -197,7 +199,10 @@
 
     function load(thumb) {
       current = thumb;
-      img.src = '/previews/565/' + current.dataset.path;
+
+      var maxWidth = window.innerWidth - 20;
+      var maxHeight = window.innerHeight - 100;
+      loader.src = '/previews/' + maxWidth + '/' + maxHeight + '/' + current.dataset.path;
     }
 
     function next(e) {
@@ -216,7 +221,8 @@
 
     function hide() {
       document.removeEventListener('keypress', keydown);
-      img.removeEventListener('load', onload);
+      loader.removeEventListener('load', onload);
+      display.removeEventListener('load', ondisplay);
       lnext.removeEventListener('click', next);
       lprev.removeEventListener('click', prev);
       bg.removeEventListener('click', hide);
@@ -245,24 +251,24 @@
     }
 
     function onload() {
-      /*jshint validthis:true*/
-      var width = img.offsetWidth;
-      var height = img.offsetHeight;
+      display.style.transition = '';
+      display.style.opacity = 0;
+      display.src = loader.src;
+    }
 
-      img.style.transition = '';
-      img.style.opacity = 0;
-
+    function ondisplay() {
+      var width = display.offsetWidth;
+      var height = display.offsetHeight;
       container.style.marginLeft = (-width/2) + 'px';
       container.style.marginTop = (-height/2) + 'px';
-
-      setTimeout(function() {
-        img.style.transition = 'opacity .5s';
-        img.style.opacity = 1;
-      }, 0);
+      display.style.transition = 'opacity .5s';
+      display.style.opacity = 1;
+      title.textContent = DOM.$(current, '.title').textContent;
     }
 
     document.addEventListener('keydown', keydown);
-    img.addEventListener('load', onload);
+    loader.addEventListener('load', onload);
+    display.addEventListener('load', ondisplay);
     lnext.addEventListener('click', next);
     lprev.addEventListener('click', prev);
     bg.addEventListener('click', hide);
