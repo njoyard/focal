@@ -1,5 +1,5 @@
 /*jshint browser:true*/
-/*global D, DOM, ist, console*/
+/*global console, D, DOM, ist, LANG*/
 'use strict';
 
 (function() {
@@ -108,7 +108,7 @@
     '#search-input': {
       'keyup': function(e) {
         if (e.keyCode === 13) {
-          showGallery('Recherche: "' + this.value + '"', this.value);
+          showGallery(LANG.searchTitle.replace(/%s/, this.value), this.value);
         }
       }
     },
@@ -153,7 +153,7 @@
       });
 
       return nav;
-    }, [{ name: 'Accueil', path: '.' }]);
+    }, [{ name: LANG.home, path: '.' }]);
 
     var previous = DOM.$('#rendered');
     if (previous) {
