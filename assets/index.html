@@ -29,7 +29,7 @@
             @if loop.index === loop.length - 1
               span.current "{{ name }}"
             @else
-              a.nav[href=#][data-path={{ path }}] "{{ name }}"
+              a.nav[href=#gallery/{{ path }}] "{{ name }}"
 
 
         #gallery
@@ -50,7 +50,7 @@
 
     <script type="text/x-ist" id="sub-galleries">
       @each galleries
-        a.sub-gallery[href=#][data-path={{ path }}]
+        a.sub-gallery[href=#gallery/{{ path }}]
           img[src=/thumbs/{{ thumb }}]
           .name "{{ name }}"
           @if 'images' in this

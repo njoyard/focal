@@ -108,17 +108,8 @@
     '#search-input': {
       'keyup': function(e) {
         if (e.keyCode === 13) {
-          showGallery(LANG.searchTitle.replace(/%s/, this.value), this.value);
+          location.href = '#search/' + this.value;
         }
-      }
-    },
-
-    '#breadcrumb .nav, #gallery .sub-gallery': {
-      'click': function(e) {
-        e.preventDefault();
-
-        showGallery(this.dataset.path);
-        return false;
       }
     },
 
@@ -303,17 +294,40 @@
     lprev.addEventListener('click', prev);
     bg.addEventListener('click', hide);
 
+    display.style.opacity = 0;
+    title.textContent = '';
     ss.style.display = 'block';
     load(thumb);
   }
 
 
-  // Get configuration and show root gallery
+  /*!
+   * Navigation helper
+   */
+
+  function navigate() {
+    var hash = location.hash || '#gallery/';
+    var parts = hash.split('/');
+    var kind = parts.shift();
+    var path = parts.join('/');
+
+    switch (kind) {
+      case '#gallery':
+        showGallery(path);
+        break;
+
+      case '#search':
+        showGallery(LANG.searchTitle.replace(/%s/, path), path);
+        break;
+    }
+  }
+
   var config;
+  addEventListener('hashchange', navigate);
   ajax.get('/rest/config')
   .then(function(cfg) {
     config = cfg;
     document.title = config.galleryName;
-    showGallery();
+    navigate();
   });
 }());
