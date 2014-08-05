@@ -1,4 +1,6 @@
 {
+  "galleryName": "Focal",
+
   "database": "mongodb://localhost/focal",
 
   "images": {

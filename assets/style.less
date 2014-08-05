@@ -6,6 +6,7 @@
 @blockHoverBackground: color('#555');
 
 @galleryMargin: 1em;
+@thumbSize: {{THUMBSIZE}}px;
 
 @animLength: .5s;
 
@@ -81,8 +82,8 @@ a {
   }
 
   img {
-    width: 75px;
-    height: 75px;
+    width: 0.75*@thumbSize;
+    height: 0.75*@thumbSize;
     float: left;
     margin-right: @galleryMargin;
   }
@@ -109,7 +110,7 @@ a {
       z-index: 1;
       left: 0;
       right: 0;
-      top: 100px;
+      top: @thumbSize;
       margin-top: @galleryMargin;
       padding: @galleryMargin/2;
       visibility: hidden;

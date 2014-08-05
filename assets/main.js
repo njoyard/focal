@@ -160,7 +160,13 @@
       previous.parentNode.removeChild(previous);
     }
 
-    var rendered = ist.script('gallery').render({ nav: nav, name: name, search: searchQuery || '' });
+    var rendered = ist.script('gallery').render({
+      galleryName: config.galleryName,
+      nav: nav,
+      name: name,
+      search: searchQuery || ''
+    });
+
     document.body.appendChild(rendered);
     DOM.behave(rendered, behaviour);
 
@@ -302,6 +308,12 @@
   }
 
 
-  // Show root gallery on startup
-  showGallery();
+  // Get configuration and show root gallery
+  var config;
+  ajax.get('/rest/config')
+  .then(function(cfg) {
+    config = cfg;
+    document.title = config.galleryName;
+    showGallery();
+  });
 }());
