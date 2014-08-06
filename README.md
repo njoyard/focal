@@ -3,6 +3,8 @@ Focal - node.js picture gallery
 
 Focal is a simple web-based picture gallery written with node.js and express.
 
+[![Focal capture 1](doc/thumb0.png)](doc/cap0.png) [![Focal capture 2](doc/thumb1.png)](doc/cap1.png) [![Focal capture 3](doc/thumb2.png)](doc/cap2.png) [![Focal capture 4](doc/thumb3.png)](doc/cap3.png)
+
 Requirements
 ------------
 
