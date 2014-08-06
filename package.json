@@ -8,6 +8,7 @@
     "picture"
   ],
   "main": "lib/focal.js",
+  "bin": "bin/focal",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node lib/focal.js"
