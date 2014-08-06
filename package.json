@@ -1,19 +1,23 @@
 {
   "name": "focal",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "node.js photo gallery",
   "keywords": [
     "gallery",
     "photo",
     "picture"
   ],
-  "main": "lib/tasky.js",
+  "main": "lib/focal.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node lib/tasky.js"
+    "start": "node lib/focal.js"
   },
   "author": "Nicolas Joyard <joyard.nicolas@gmail.com>",
   "license": "GPLv3",
+  "bugs": {
+    "url": "http://github.com/njoyard/focal/issues"
+  },
+  "repository": "git://github.com/njoyard/focal.git",
   "dependencies": {
     "chokidar": "^0.8.2",
     "exif": "^0.4.0",
