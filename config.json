@@ -5,6 +5,7 @@
 
   "images": {
     "base": "/var/lib/focal",
+    "randomCount": 10,
     "previews": {
       "quality": 85
     },

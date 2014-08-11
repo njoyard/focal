@@ -8,6 +8,7 @@ var LANG = (function() {
       slideshowNext: '⟩',
       slideshowPrev: '⟨',
       home: 'Home',
+      random: 'Random pictures',
       search: 'Search',
       searchTitle: 'Search results: "%s"',
       imageCount: '%s pictures',
@@ -23,6 +24,7 @@ var LANG = (function() {
 
     fr: {
       home: 'Accueil',
+      random: 'Images au hasard',
       search: 'Rechercher',
       searchTitle: 'Recherche: "%s"',
       imageCount: '%s images',

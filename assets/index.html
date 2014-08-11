@@ -21,7 +21,7 @@
           label[for=search-input] "{{ LANG.search }}"
           input#search-input[type=search][value={{ search }}]
 
-        #breadcrumb
+        h2#breadcrumb
           @each nav
             @if loop.index > 0
               span.separator "{{ LANG.breadcrumbSeparator }}"
@@ -33,7 +33,11 @@
 
         #gallery
           #sub-galleries
-          #images
+          #images.image-list
+
+          @if path === "."
+            #random.image-list
+              h2 "{{ LANG.random }}"
 
         #slideshow
           #background

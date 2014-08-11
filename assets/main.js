@@ -111,7 +111,7 @@
       }
     },
 
-    '#images .container': {
+    '.image-list .container': {
       'click': function(e) {
         e.preventDefault();
 
@@ -120,7 +120,7 @@
       }
     },
 
-    '#images img': {
+    '.image-list img': {
       'load': function() {
         this.style.opacity = 1;
       }
@@ -152,7 +152,7 @@
     var rendered = ist.script('gallery').render({
       galleryName: config.galleryName,
       nav: nav,
-      name: name,
+      path: path,
       search: searchQuery || ''
     });
 
@@ -164,13 +164,13 @@
       DOM.behave(DOM.$('#rendered'), behaviour);
     }
 
-    function renderImages(images) {
+    function renderImages(images, isRandom) {
       images.forEach(function(im) {
         var elements = im.path.split('/');
         im.title = elements[elements.length - 1].replace(/\.[^.]*$/, '');
       });
 
-      DOM.$('#rendered #images').appendChild(ist.script('images').render({ images: images }));
+      DOM.$(isRandom ? '#rendered #random' : '#rendered #images').appendChild(ist.script('images').render({ images: images }));
       DOM.behave(DOM.$('#rendered'), behaviour);
     }
 
@@ -192,6 +192,14 @@
       ajax.get(uri('/rest/images?query=gallery:%s', path))
       .then(function(images) {
         renderImages(images._items);
+      })
+      .error(function(e) {
+        console.log(e);
+      });
+
+      ajax.get('/rest/random')
+      .then(function(randomImages) {
+        renderImages(randomImages, true);
       })
       .error(function(e) {
         console.log(e);
