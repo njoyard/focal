@@ -263,6 +263,8 @@
           prev();
           return false;
 
+        case 13: // Return
+        case 32: // Space
         case 39: // Right
         case 40: // Down
           e.preventDefault();
