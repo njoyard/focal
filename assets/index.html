@@ -31,21 +31,26 @@
             @else
               a.nav[href=#gallery/{{ path }}] "{{ name }}"
 
-
         #gallery
           #sub-galleries
           #images
 
         #slideshow
           #background
-          #image
-            img#display
+          #container
             img#loader
-            #prev
-              span "{{ LANG.slideshowPrev }}"
-            #next
-              span "{{ LANG.slideshowNext }}"
             #title
+            #image
+              img#display
+              #prev
+                span "{{ LANG.slideshowPrev }}"
+              #next
+                span "{{ LANG.slideshowNext }}"
+            #actions
+              a#download[href=#][title={{ LANG.download }}]
+                img[src=assets/download.png]
+                "{{ LANG.download }}"
+            #exif
     </script>
 
     <script type="text/x-ist" id="sub-galleries">
@@ -62,12 +67,38 @@
 
     <script type="text/x-ist" id="images">
       @each images
-        a.container[data-path={{ path }}][href=#]
+        a.container[data-path={{ path }}][data-exif={{ exif }}][href=#]
           img[src=/thumbs/{{ path }}]
           .select-box
             span.check "✓"
           .info
             span.title "{{ title }}"
+    </script>
+
+    <script type="text/x-ist" id="exif">
+      dl
+        @if 'image' in exif && 'Make' in exif.image
+          dt "{{ LANG.device }}"
+          dd "{{ exif.image.Make }} {{ exif.image.Model }}"
+
+        @if 'exif' in exif && 'Flash' in exif.exif
+          dt "{{ LANG.focalLength }}"
+          dd "{{ exif.exif.FocalLength }} mm"
+
+          dt "{{ LANG.focalLength35 }}"
+          dd "{{ exif.exif.FocalLengthIn35mmFormat }} mm"
+
+          dt "{{ LANG.aperture }}"
+          dd "f/{{ exif.exif.FNumber }}"
+
+          dt "{{ LANG.exposure }}"
+          @if exif.exif.ExposureTime < 0.5
+            dd "1/{{ Math.round(1/exif.exif.ExposureTime) }} s"
+          @else
+            dd "{{ exif.exif.ExposureTime }} s"
+
+          dt "{{ LANG.flash }}"
+          dd "{{ exif.exif.Flash }}"
     </script>
   </head>
   <body>

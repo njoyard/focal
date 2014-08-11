@@ -4,14 +4,21 @@
 var LANG = (function() {
   var i18n = {
     root: {
+      breadcrumbSeparator: '⟩',
+      slideshowNext: '⟩',
+      slideshowPrev: '⟨',
       home: 'Home',
       search: 'Search',
       searchTitle: 'Search results: "%s"',
       imageCount: '%s pictures',
       galCount: '%s galleries',
-      breadcrumbSeparator: '⟩',
-      slideshowNext: '⟩',
-      slideshowPrev: '⟨'
+      download: 'Download',
+      device: 'Device',
+      focalLength: 'Focal length',
+      focalLength35: 'Focal length (35 mm)',
+      aperture: 'Aperture',
+      exposure: 'Exposure time',
+      flash: 'Flash'
     },
 
     fr: {
@@ -19,7 +26,14 @@ var LANG = (function() {
       search: 'Rechercher',
       searchTitle: 'Recherche: "%s"',
       imageCount: '%s images',
-      galCount: '%s galeries'
+      galCount: '%s albums',
+      download: 'Télécharger',
+      device: 'Appareil',
+      focalLength: 'Distance focale',
+      focalLength35: 'Distance focale (35 mm)',
+      aperture: 'Ouverture',
+      exposure: 'Exposition',
+      flash: 'Flash'
     }
   };
 

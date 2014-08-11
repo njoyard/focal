@@ -62,15 +62,13 @@
     /**
      * JSON ajax request helper
      *
-     * @param {String} type response type ('text', 'xml' or 'json')
      * @param {String} method request method; case-insensitive, maps 'del' to 'delete'
      * @param {String} uri request URI
      * @param {Object} [data] request data
      */
-    function request(method, uri, data, d) {
+    function request(method, uri, data) {
       var xhr = new XMLHttpRequest();
-
-      d = d || D();
+      var d = D();
 
       if (method.toUpperCase() === 'DEL') {
         method = 'DELETE';
@@ -208,13 +206,14 @@
 
   function slideShow(thumb) {
     var ss = DOM.$('#slideshow');
-    var container = DOM.$(ss, '#image');
+    var container = DOM.$(ss, '#container');
     var title = DOM.$(ss, '#title');
     var bg = DOM.$(ss, '#background');
     var display = DOM.$(ss, 'img#display');
     var loader = DOM.$(ss, 'img#loader');
     var lnext = DOM.$(ss, '#next');
     var lprev = DOM.$(ss, '#prev');
+    var dl = DOM.$(ss, '#download');
     var thumbs = DOM.$$(thumb.parentNode, '.container');
     var current;
 
@@ -247,6 +246,7 @@
       lnext.removeEventListener('click', next);
       lprev.removeEventListener('click', prev);
       bg.removeEventListener('click', hide);
+      dl.removeEventListener('click', download);
 
       ss.style.display = 'none';
     }
@@ -278,13 +278,19 @@
     }
 
     function ondisplay() {
-      var width = display.offsetWidth;
-      var height = display.offsetHeight;
+      var width = container.offsetWidth;
+      var height = container.offsetHeight;
       container.style.marginLeft = (-width/2) + 'px';
       container.style.marginTop = (-height/2) + 'px';
       display.style.transition = 'opacity .5s';
       display.style.opacity = 1;
       title.textContent = DOM.$(current, '.title').textContent;
+    }
+
+    function download(e) {
+      e.preventDefault();
+      location.href = '/images/' + current.dataset.path;
+      return false;
     }
 
     document.addEventListener('keydown', keydown);
@@ -293,6 +299,7 @@
     lnext.addEventListener('click', next);
     lprev.addEventListener('click', prev);
     bg.addEventListener('click', hide);
+    dl.addEventListener('click', download);
 
     display.style.opacity = 0;
     title.textContent = '';

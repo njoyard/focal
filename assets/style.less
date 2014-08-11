@@ -181,53 +181,76 @@ a {
     opacity: 0.85;
   }
 
-  #image {
+  #container {
+    display: inline-block;
     position: absolute;
     left: 50%;
     top: 50%;
 
-    #loader {
-      display: none;
+    #title {
+      text-align: center;
+    }
+
+    #image {
+      position: relative;
+
+      img#display {
+        margin: @galleryMargin/2;
+      }
+
+      #next, #prev {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        font-size: 4em;
+        color: @background;
+        text-shadow: 0 0 .1em @text;
+        opacity: 0;
+
+        &:hover {
+          opacity: 0.75;
+        }
+
+        span {
+          height: 1em;
+          line-height: 1em;
+          position: absolute;
+          top: 50%;
+          margin-top: -.5em;
+        }
+      }
+
+      #next {
+        left: 50%;
+        right: 0;
+
+        span {
+          right: .2em;
+        }
+      }
+
+      #prev {
+        left: 0;
+        right: 50%;
+
+        span {
+          left: .2em;
+        }
+      }
+    }
+
+    #actions {
+      text-align: center;
+
+      img {
+        height: 1em;
+        width: 1em;
+      }
     }
   }
 
-  #next, #prev {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    font-size: 4em;
-    color: @background;
-    text-shadow: 0 0 .1em @text;
-    opacity: 0;
-
-    &:hover {
-      opacity: 0.75;
-    }
-
-    span {
-      height: 1em;
-      line-height: 1em;
-      position: absolute;
-      top: 50%;
-      margin-top: -.5em;
-    }
+  #loader {
+    display: none;
   }
 
-  #next {
-    left: 50%;
-    right: 0;
-
-    span {
-      right: .2em;
-    }
-  }
-
-  #prev {
-    left: 0;
-    right: 50%;
-
-    span {
-      left: .2em;
-    }
-  }
 }
