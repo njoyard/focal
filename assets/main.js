@@ -197,13 +197,15 @@
         console.log(e);
       });
 
-      ajax.get('/rest/random')
-      .then(function(randomImages) {
-        renderImages(randomImages, true);
-      })
-      .error(function(e) {
-        console.log(e);
-      });
+      if (path === '.') {
+        ajax.get('/rest/random')
+        .then(function(randomImages) {
+          renderImages(randomImages, true);
+        })
+        .error(function(e) {
+          console.log(e);
+        });
+      }
     }
   }
 
@@ -216,12 +218,8 @@
     var ss = DOM.$('#slideshow');
     var container = DOM.$(ss, '#container');
     var title = DOM.$(ss, '#title');
-    var bg = DOM.$(ss, '#background');
     var display = DOM.$(ss, 'img#display');
     var loader = DOM.$(ss, 'img#loader');
-    var lnext = DOM.$(ss, '#next');
-    var lprev = DOM.$(ss, '#prev');
-    var dl = DOM.$(ss, '#download');
     var thumbs = DOM.$$(thumb.parentNode, '.container');
     var current;
 
@@ -249,12 +247,14 @@
 
     function hide() {
       document.removeEventListener('keypress', keydown);
-      loader.removeEventListener('load', onload);
-      display.removeEventListener('load', ondisplay);
-      lnext.removeEventListener('click', next);
-      lprev.removeEventListener('click', prev);
-      bg.removeEventListener('click', hide);
-      dl.removeEventListener('click', download);
+      DOM.behave(ss, {
+        'img#loader': {},
+        'img#display': {},
+        '#next': {},
+        '#prev': {},
+        '#background': {},
+        '#download': {}
+      });
 
       ss.style.display = 'none';
     }
@@ -304,12 +304,14 @@
     }
 
     document.addEventListener('keydown', keydown);
-    loader.addEventListener('load', onload);
-    display.addEventListener('load', ondisplay);
-    lnext.addEventListener('click', next);
-    lprev.addEventListener('click', prev);
-    bg.addEventListener('click', hide);
-    dl.addEventListener('click', download);
+    DOM.behave(ss, {
+      'img#loader': { 'load': onload },
+      'img#display': { 'load': ondisplay },
+      '#next': { 'click': next },
+      '#prev': { 'click': prev },
+      '#background': { 'click': hide },
+      '#download': { 'click': download }
+    });
 
     display.style.opacity = 0;
     title.textContent = '';

@@ -92,7 +92,7 @@ var DOM = {
 
     Object.keys(behaviours).forEach(function(selector) {
       var events = behaviours[selector],
-        elems = selector === "&" ? [root] : DOM.$$(root, selector);
+        elems = selector === '&' ? [root] : DOM.$$(root, selector);
 
       elems.forEach(function(element) {
         var activeBehaviours;
